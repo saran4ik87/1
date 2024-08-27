@@ -1,4 +1,4 @@
-first, second, third = int(input('Введите первое число')), int(input('Введите второе число')), int(input('Введите последнее число'))
+first, second, third = int(input('Введите первое число ')), int(input('Введите второе число ')), int(input('Введите последнее число '))
 if first == second == third:
     print(3)
 elif first == second or first == third or second == third:
