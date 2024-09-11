@@ -3,7 +3,7 @@ def calculate_structure_sum(data):
     if isinstance(data, dict):
         data = list(data.items())
     for d in data:
-        if isinstance(d, int):
+        if isinstance(d, (int, float)):
             sum += d
         elif isinstance(d, str):
             sum += len(d)
