@@ -1,10 +1,8 @@
 def calculate_structure_sum(data):
     sum = 0
     if isinstance(data, dict):
-        d_data = list(data.items())
-    else:
-        d_data = data
-    for d in d_data:
+        data = list(data.items())
+    for d in data:
         if isinstance(d, int):
             sum += d
         elif isinstance(d, str):
