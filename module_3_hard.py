@@ -1,15 +1,15 @@
 def calculate_structure_sum(data):
-    sum = 0
+    sum_d = 0
     if isinstance(data, dict):
         data = list(data.items())
     for d in data:
         if isinstance(d, (int, float)):
-            sum += d
+            sum_d += d
         elif isinstance(d, str):
-            sum += len(d)
+            sum_d += len(d)
         else:
-            sum += calculate_structure_sum(d)
-    return sum
+            sum_d += calculate_structure_sum(d)
+    return sum_d
 
 
 data_structure = [
