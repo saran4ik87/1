@@ -4,7 +4,7 @@ from time import sleep
 class User:
     def __init__(self, nickname, password, age):
         self.nickname = nickname
-        self.password = hash(password)
+        self.password = password
         self.age = age
 
     def __str__(self):
@@ -31,15 +31,16 @@ class UrTube:
 
     def log_in(self, nickname, password):
         for u in self.users:
-            if nickname in u.nickname and password in u.password:
-                self.current_user = u.nickname
-                return u.nickname
+            if nickname == u.nickname and hash(password) == hash(u.password):
+                self.current_user = u
+
 
     def register(self, nickname, password, age):
-        new_user = User(nickname, password, age)
-        if new_user not in self.users:
-            self.users.append(new_user)
-            self.current_user = new_user
+        if nickname not in self.users:
+            user = User(nickname, password, age)
+            self.users.append(user)
+            self.log_out()
+            self.log_in(user.nickname, user.password)
         else:
             print(f'Пользователь {nickname} уже существует')
 
@@ -59,21 +60,19 @@ class UrTube:
         return lp
 
     def watch_video(self, vid_name):
-        if self.current_user is None:
-            print('Войти в аккаунт чтобы смотреть видео')
-            return
-        for v in self.videos:
-            if vid_name == v.title:
-                if v.adult_mode and self.current_user.age >= 18:
+        if self.current_user and self.current_user.age < 18:
+            print('Вам нет 18 лет, пожалуйста покиньте страницу')
+        elif self.current_user:
+            for v in self.videos:
+                if vid_name in v.title:
                     while v.time_now < v.duration:
                         v.time_now += 1
                         print(v.time_now, end=' ')
                         sleep(1)
                     v.time_now = 0
                     print('Конец видео')
-                else:
-                    print('Вам нет 18 лет, пожалуйста покиньте страницу')
-                break
+        else:
+            print('Войдите в аккаунт, чтобы смотреть видео')
 
 
 ur = UrTube()
