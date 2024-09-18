@@ -16,7 +16,6 @@ class Animal:
 
 class Plant:
     edible = False
-    name = None
 
     def __init__(self, name):
         self.name = name
