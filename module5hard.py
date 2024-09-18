@@ -44,7 +44,6 @@ class UrTube:
                 break
         if not self.finder:
             self.users.append(us)
-            self.log_out()
             self.log_in(us.nickname, us.password)
 
     def log_out(self):
@@ -74,6 +73,8 @@ class UrTube:
                         sleep(1)
                     v.time_now = 0
                     print('Конец видео')
+                else:
+                    print("Видео не найдено")
         else:
             print('Войдите в аккаунт, чтобы смотреть видео')
 
