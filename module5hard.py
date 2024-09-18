@@ -28,21 +28,24 @@ class UrTube:
         self.videos = []
         self.users = []
         self.current_user = None
+        self.finder = False
 
     def log_in(self, nickname, password):
         for u in self.users:
             if nickname == u.nickname and hash(password) == hash(u.password):
                 self.current_user = u
 
-
     def register(self, nickname, password, age):
-        if nickname not in self.users:
-            user = User(nickname, password, age)
-            self.users.append(user)
+        us = User(nickname, password, age)
+        for u in self.users:
+            if us.nickname == u.nickname:
+                self.finder = True
+                print(f'Пользователь {nickname} уже существует')
+                break
+        if not self.finder:
+            self.users.append(us)
             self.log_out()
-            self.log_in(user.nickname, user.password)
-        else:
-            print(f'Пользователь {nickname} уже существует')
+            self.log_in(us.nickname, us.password)
 
     def log_out(self):
         self.current_user = None
@@ -89,6 +92,10 @@ print(ur.get_videos('ПРОГ'))
 # Проверка на вход пользователя и возрастное ограничение
 ur.watch_video('Для чего девушкам парень программист?')
 ur.register('vasya_pupkin', 'lolkekcheburek', 13)
+# ur.register('fedya_popkov', 'iloviit', 19)
+# print(ur.current_user)
+# ur.log_in('vasya_pupkin', 'lolkekcheburek')
+# print(ur.current_user)
 ur.watch_video('Для чего девушкам парень программист?')
 ur.register('urban_pythonist', 'iScX4vIJClb9YQavjAgF', 25)
 ur.watch_video('Для чего девушкам парень программист?')
