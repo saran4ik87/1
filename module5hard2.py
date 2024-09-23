@@ -4,7 +4,7 @@ from time import sleep
 class User:
     def __init__(self, nickname, password, age):
         self.nickname = nickname
-        self.password = password
+        self.password = hash(password)
         self.age = age
 
     def __str__(self):
@@ -38,7 +38,7 @@ class UrTube:
 
     def log_in(self, nickname, password):
         for u in self.users:
-            if nickname == u.nickname and hash(password) == hash(u.password):
+            if nickname == u.nickname and hash(password) == u.password:
                 self.current_user = u
 
     def register(self, nickname, password, age):
